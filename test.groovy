@@ -6,7 +6,7 @@ pipeline{
 
 
     sh''' #!/bin/bash
-	echo ${params.test_choice}
+	echo ${test_choice}
 '''
 
 }
