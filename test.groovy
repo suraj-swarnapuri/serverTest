@@ -27,8 +27,28 @@ stages{
         stage("Deploy"){
             steps{
              
-                    sh''' #!/bin/bash
-                     echo ${test_choice}
+                    sh'''  #!/bin/bash
+            set -ex
+            export RUN_ENV=prod
+            export RUN_SITE=dal12-onSL
+            export SOURCE_BRANCH=uat
+            export TARGET_BRANCH=prod
+            export USERNAME=deploy1720
+            if [ "${CONTROLLER_POD}" = "POD2" ] ; then
+                export HOSTNAME=169.59.198.195
+            else
+                export HOSTNAME=169.47.70.153
+            fi
+            export DESCRIBE=${TARGET_HOST}
+            if [ "${PLAYBOOK}" = "other" ] ; then
+                export PLAYBOOK=${PLAYBOOK_OTHER}
+            else
+                export PLAYBOOK=${PLAYBOOK}
+            fi
+            set +x
+            CICD_VAULT_SECRET_KEY=`cat "$CICD_VAULT_SECRET_KEY"`
+            set -x
+            echo "deploy"
                     '''
                
             }
