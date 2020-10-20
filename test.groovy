@@ -46,7 +46,7 @@ stages{
                 export PLAYBOOK=${PLAYBOOK}
             fi
             set +x
-            CICD_VAULT_SECRET_KEY=`cat "$CICD_VAULT_SECRET_KEY"`
+            CICD_VAULT_SECRET_KEY=${CICD_VAULT_SECRET_KEY}
             set -x
             echo "deploy"
                     '''
