@@ -28,7 +28,7 @@ stages{
             steps{
              
                     sh''' #!/bin/bash
-                     echo ${test_choices}
+                     echo ${test_choice}
                     '''
                
             }
