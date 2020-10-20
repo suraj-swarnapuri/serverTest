@@ -17,6 +17,7 @@ stages{
                 '''
             }
         }
+         input 'wait for approval'
         stage("Image sign check"){
             steps{
                 sh ''' #!/bin/bash
