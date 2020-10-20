@@ -15,9 +15,9 @@ stages{
                 sh ''' #!/bin/bash
                     echo "check service now"
                 '''
+                input 'wait for approval'
             }
         }
-         input 'wait for approval'
         stage("Image sign check"){
             steps{
                 sh ''' #!/bin/bash
