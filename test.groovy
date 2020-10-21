@@ -15,7 +15,8 @@ stages{
                 sh ''' #!/bin/bash
                     echo "check service now"
                 '''
-               build job: 'test_job', parameters: [string(name: 'VAR', value: ${VAR})]
+               job_var = ${VAR}
+               build job: 'test_job', parameters: [string(name: 'VAR', value: job_var)]
                 input 'wait for approval'
             }
         }
