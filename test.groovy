@@ -35,7 +35,7 @@ stages{
             export RUN_SITE=${RUN_SITE}
             export SOURCE_BRANCH=uat
             export TARGET_BRANCH=prod
-            export USERNAME=$(USERNAME}
+            export USERNAME=${USERNAME}
             if [ "${CONTROLLER_POD}" = "POD2" ] ; then
                 export HOSTNAME=169.59.198.195
             else
