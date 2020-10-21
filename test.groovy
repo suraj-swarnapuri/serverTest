@@ -31,10 +31,10 @@ stages{
                     sh'''  #!/bin/bash
             set -ex
             export RUN_ENV=prod
-            export RUN_SITE=dal12-onSL
+            export RUN_SITE=${RUN_SITE}
             export SOURCE_BRANCH=uat
             export TARGET_BRANCH=prod
-            export USERNAME=deploy1720
+            export USERNAME=$(USERNAME}
             if [ "${CONTROLLER_POD}" = "POD2" ] ; then
                 export HOSTNAME=169.59.198.195
             else
