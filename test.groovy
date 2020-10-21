@@ -15,7 +15,16 @@ stages{
                 sh ''' #!/bin/bash
                     echo "check service now"
                 '''
-               build job: 'test_job', parameters: [string(name: 'VAR', value: String.valueOf(VAR))], wait:true
+                build job: 'jjb-open-cr-issue', 
+                parameters: [
+                    string(name: 'PR_Title', value: String.valueOf(PR_Title)), 
+                    string(name: 'PR_Org_Repo', value: String.valueOf(PR_Org_Repo)), 
+                    string(name: 'CR_Title', value: String.valueOf(CR_Title)), 
+                    string(name: 'CR_Org_Repo', value: String.valueOf(CR_Org_Repo)), 
+                    string(name: 'CR_Approvers', value: String.valueOf(CR_Approvers)), 
+                    string(name: 'CR_Assignees', value: String.valueOf(CR_Assignees)), 
+                    string(name: 'CR_Notify', value: String.valueOf(CR_Notify))
+                    ]
             }
         }
         stage("Image sign check"){
@@ -28,28 +37,25 @@ stages{
         stage("Deploy"){
             steps{
              
-                    sh'''  #!/bin/bash
-            set -ex
-            export RUN_ENV=prod
-            export RUN_SITE=${RUN_SITE}
-            export SOURCE_BRANCH=uat
-            export TARGET_BRANCH=prod
-            export USERNAME=${USERNAME}
-            if [ "${CONTROLLER_POD}" = "POD2" ] ; then
-                export HOSTNAME=169.59.198.195
-            else
-                export HOSTNAME=169.47.70.153
-            fi
-            export DESCRIBE=${TARGET_HOST}
-            if [ "${PLAYBOOK}" = "other" ] ; then
-                export PLAYBOOK=${PLAYBOOK_OTHER}
-            else
-                export PLAYBOOK=${PLAYBOOK}
-            fi
-            set +x
-            CICD_VAULT_SECRET_KEY=${CICD_VAULT_SECRET_KEY}
-            set -x
-            echo "deploy"
+                    sh'''
+                            #!/bin/bash
+                            set -ex
+                            export RUN_ENV=${RUN_ENV} 
+                            export RUN_SITE=${RUN_SITE} 
+                            export SOURCE_BRANCH=${SOURCE_BRANCH} 
+                            export TARGET_BRANCH=${TARGET_BRANCH} 
+                            export USERNAME=${USERNAME} 
+                            export HOSTNAME=${HOSTNAME} 
+                            export DESCRIBE=${TARGET_HOST}
+                            if [ "${PLAYBOOK}" = "other" ] ; then
+                                export PLAYBOOK=${PLAYBOOK_OTHER}
+                            else
+                                export PLAYBOOK=${PLAYBOOK}
+                            fi
+                            set +x
+                            CICD_VAULT_SECRET_KEY=${CICD_VAULT_SECRET_KEY}
+                            set -x
+                            echo "deploy"
                     '''
                
             }
