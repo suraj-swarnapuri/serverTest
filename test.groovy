@@ -15,6 +15,7 @@ stages{
                 sh ''' #!/bin/bash
                     echo "check service now"
                 '''
+                build 'test_job'
                 input 'wait for approval'
             }
         }
